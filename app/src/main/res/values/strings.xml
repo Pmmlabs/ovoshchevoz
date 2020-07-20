@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name" translatable="false">Овощевоз</string>
+    <string name="win_caption">Победил</string>
+    <string name="start">СТАРТ </string>
+    <string name="players">Игроки:</string>
+    <string name="player1">Игрок 1</string>
+    <string name="player2">Игрок 2</string>
+    <string name="label">овощевоз</string>
+    <string name="Win">Победа</string>
+    <string name="guessed">Угадал?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+</resources>
