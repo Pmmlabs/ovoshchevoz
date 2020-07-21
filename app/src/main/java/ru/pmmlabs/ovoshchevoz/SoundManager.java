@@ -1,7 +1,6 @@
 package ru.pmmlabs.ovoshchevoz;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Handler;
 import android.util.SparseIntArray;
@@ -18,7 +17,7 @@ public class SoundManager {
     private static final int STOP_DELAY_MILLIS = 3000;
 
     public SoundManager() {
-        mSoundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0);
+        mSoundPool = new SoundPool.Builder().setMaxStreams (MAX_STREAMS).build();
     }
 
     /**

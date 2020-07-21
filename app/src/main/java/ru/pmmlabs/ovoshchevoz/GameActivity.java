@@ -51,6 +51,8 @@ public class GameActivity extends FragmentActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putIntArray("points", new int[]{player1points, player2points});
+        outState.putCharSequence("word", wordTextView.getText());
+        outState.putBoolean("stop", stop);
         super.onSaveInstanceState(outState);
     }
 
@@ -63,6 +65,8 @@ public class GameActivity extends FragmentActivity {
             player2points = points[1];
             refreshPoints();
         }
+        wordTextView.setText(savedInstanceState.getCharSequence("word"));
+        stop = savedInstanceState.getBoolean("stop");
     }
 
     @Override
@@ -100,6 +104,7 @@ public class GameActivity extends FragmentActivity {
         soundManager.addSound(this, R.raw.wrong);
         soundManager.addSound(this, R.raw.duck);
         soundManager.addSound(this, R.raw.ding);
+        soundManager.addSound(this, R.raw.firework);
     }
 
     private void nextWord() {
@@ -238,23 +243,25 @@ public class GameActivity extends FragmentActivity {
     }
 
     private void handleClick(int player) {
-        stopTimer();
-        soundManager.playSound(R.raw.duck);
-        ImageButton button1 = findViewById(R.id.button1);
-        ImageButton button2 = findViewById(R.id.button2);
-        if (button1.isPressed() && button2.isPressed()) {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "YES",
-                    Toast.LENGTH_SHORT);
+        if (!stop) {
+            stopTimer();
+            soundManager.playSound(R.raw.duck);
+            ImageButton button1 = findViewById(R.id.button1);
+            ImageButton button2 = findViewById(R.id.button2);
+            if (button1.isPressed() && button2.isPressed()) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "YES",
+                        Toast.LENGTH_SHORT);
 
-            toast.show();
+                toast.show();
+            }
+            Log.d(TAG, "Answer intent is creating...");
+            Intent intent = new Intent(this, AnswerActivity.class);
+            intent.putExtra(PLAYER, player);
+            intent.putExtra(PLAYER_NAME, playerNames[player - 1]);
+            startActivityForResult(intent, REQUEST_CODE);
+            Log.d(TAG, "Answer intent created");
         }
-        Log.d(TAG, "Answer intent is creating...");
-        Intent intent = new Intent(this, AnswerActivity.class);
-        intent.putExtra(PLAYER, player);
-        intent.putExtra(PLAYER_NAME, playerNames[player - 1]);
-        startActivityForResult(intent, REQUEST_CODE);
-        Log.d(TAG, "Answer intent created");
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -278,6 +285,7 @@ public class GameActivity extends FragmentActivity {
                     wordTextView.setText(String.format("%s %s", getString(R.string.win_caption), player1points == POINTS_TO_WIN ? playerNames[0] : playerNames[1]));
                     stopTimer();
                     // fireworks
+                    soundManager.playSound(R.raw.firework);
                     long delay = 0;
                     int[] fireworks = new int[]{R.id.firework1, R.id.firework3, R.id.firework, R.id.firework4, R.id.firework2};
                     for (int fw : fireworks) {
