@@ -5,12 +5,14 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
 
 public class MainActivity extends FragmentActivity {
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,10 @@ public class MainActivity extends FragmentActivity {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-
+        SimpleImageArrayAdapter adapter = new SimpleImageArrayAdapter(getBaseContext(),
+                new Integer[]{R.drawable.ru, R.drawable.gb});
+        spinner = findViewById(R.id.spinner);
+        spinner.setAdapter(adapter);
     }
 
     public void buttonClick(View v){
@@ -30,6 +35,8 @@ public class MainActivity extends FragmentActivity {
                 ((EditText)findViewById(R.id.player1Name)).getText().toString(),
                 ((EditText)findViewById(R.id.player2Name)).getText().toString()
         });
+        int[] wordsFiles = new int[]{R.raw.ru, R.raw.en};
+        intent.putExtra("lang", wordsFiles[spinner.getSelectedItemPosition()]);
         startActivity(intent);
     }
 }

@@ -47,6 +47,7 @@ public class GameActivity extends FragmentActivity {
     String[] playerNames;
     private SoundManager soundManager;
     private boolean stop = false;
+    private int wordsFile;
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -75,6 +76,7 @@ public class GameActivity extends FragmentActivity {
         setContentView(R.layout.activity_game);
 
         playerNames = getIntent().getStringArrayExtra("playerNames");
+        wordsFile = getIntent().getIntExtra("lang", R.raw.ru);
         wordTextView = findViewById(R.id.wordTextView);
         timerView = findViewById(R.id.timerView);
 
@@ -113,10 +115,10 @@ public class GameActivity extends FragmentActivity {
         do {
             int wordNumber = random.nextInt(fileSize);
 
-            InputStreamReader isr = new InputStreamReader(getResources().openRawResource(R.raw.ru));
+            InputStreamReader isr = new InputStreamReader(getResources().openRawResource(wordsFile));
             BufferedReader br = new BufferedReader(isr);
             try {
-                for (int i = 0; i < wordNumber; i++) {
+                for (int i = 0; i < wordNumber && word != null; i++) {
                     word = br.readLine();
                 }
                 wordTextView.setText(word + (char) 0xA0); // non-breakable space to avoid cutting of last italic letter
@@ -211,7 +213,7 @@ public class GameActivity extends FragmentActivity {
     }
 
     int linesCount() throws IOException {
-        InputStream inputStream = getResources().openRawResource(R.raw.ru);
+        InputStream inputStream = getResources().openRawResource(wordsFile);
         InputStreamReader isr = new InputStreamReader(inputStream);
         LineNumberReader count = new LineNumberReader(isr);
         while (count.skip(Long.MAX_VALUE) > 0) {
