@@ -284,7 +284,7 @@ public class GameActivity extends FragmentActivity {
                 refreshPoints();
                 if (player1points == POINTS_TO_WIN || player2points == POINTS_TO_WIN) {
                     findViewById(player1points == POINTS_TO_WIN ? R.id.player1win : R.id.player2win).setVisibility(View.VISIBLE);
-                    wordTextView.setText(String.format("%s %s", getString(R.string.win_caption), player1points == POINTS_TO_WIN ? playerNames[0] : playerNames[1]));
+                    wordTextView.setText(String.format("%s %s" + (char) 0xA0, getString(R.string.win_caption), player1points == POINTS_TO_WIN ? playerNames[0] : playerNames[1]));
                     stopTimer();
                     // fireworks
                     soundManager.playSound(R.raw.firework);

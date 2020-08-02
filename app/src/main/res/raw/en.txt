@@ -387,7 +387,6 @@ live
 lives
 living
 local
-location
 lock
 log
 loneliness
@@ -399,7 +398,6 @@ looking
 lose
 loser
 lost
-lot
 loud
 love
 lover
@@ -489,7 +487,6 @@ other
 ourselves
 outside
 overnight
-own
 pain
 painting
 paper
@@ -534,7 +531,6 @@ queen
 quit
 quite
 rain
-ran
 rather
 read
 ready
@@ -546,7 +542,6 @@ red
 refuse
 regret
 remember
-rent
 reply
 rest
 return
