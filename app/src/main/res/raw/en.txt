@@ -50,7 +50,6 @@ beating
 beautiful
 because
 bed
-bedroom
 before
 beg
 begging
@@ -388,7 +387,6 @@ lives
 living
 local
 lock
-log
 loneliness
 lonely
 long
@@ -411,7 +409,6 @@ made
 magic
 mail
 make
-makes
 making
 man
 manage
@@ -703,7 +700,6 @@ teacher
 tear
 tearing
 teen
-telephone
 tell
 telling
 tells
@@ -763,7 +759,6 @@ treat
 treating
 tree
 trick
-trolley
 trouble
 true
 trust
