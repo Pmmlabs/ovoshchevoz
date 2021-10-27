@@ -74,6 +74,7 @@
         android:inputType="textPersonName"
         android:padding="10dp"
         android:text="@string/player1"
+        android:importantForAutofill="no"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/player2Name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,12 +91,12 @@
         android:inputType="textPersonName"
         android:padding="10dp"
         android:text="@string/player2"
+        android:importantForAutofill="no"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player1Name"
-        android:autofillHints="name" />
+        app:layout_constraintTop_toBottomOf="@+id/player1Name" />
 
     <TextView
         android:id="@+id/textView2"
@@ -121,7 +122,7 @@
         android:id="@+id/spinner"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/ru"
+        android:background="@color/black_overlay"
         android:popupBackground="@color/black_overlay"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -134,13 +135,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.87" />
+        app:layout_constraintGuide_percent="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.93" />
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
