@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentActivity;
 public class MainActivity extends FragmentActivity {
     Spinner spinner;
     private static final Object[][] wordSets = {
-            {R.drawable.ru, R.raw.ru, "Клавагонки"},
+            {R.drawable.ru, R.raw.ru, "Гонки"},
             {R.drawable.gb, R.raw.en, "Beatles"},
             {R.drawable.aria, R.raw.aria, "Ария"},
             {R.drawable.slot, R.raw.slot, "Слот"},

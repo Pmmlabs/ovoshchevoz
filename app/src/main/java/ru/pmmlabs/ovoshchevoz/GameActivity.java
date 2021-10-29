@@ -1,5 +1,6 @@
 package ru.pmmlabs.ovoshchevoz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.io.OutputStreamWriter;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -174,6 +176,14 @@ public class GameActivity extends FragmentActivity {
                             // time is up
                             soundManager.playSound(R.raw.wrong);
                             findViewById(R.id.wrongStub).setVisibility(View.VISIBLE);
+                            try {
+                                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput("failed_words.txt", Context.MODE_APPEND));
+                                outputStreamWriter.write(wordTextView.getText().subSequence(0, wordTextView.getText().length()-1).toString()+"\n");
+                                outputStreamWriter.close();
+                            }
+                            catch (IOException e) {
+                                Log.e("Exception", "File write failed: " + e.toString());
+                            }
                             Timer timerWrong = new Timer();
                             timerWrong.schedule(new TimerTask() {
                                @Override
@@ -229,16 +239,27 @@ public class GameActivity extends FragmentActivity {
 
     private View.OnTouchListener getOnTouchListener() {
         return new View.OnTouchListener() {
+            private boolean clicked = false;
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (!clicked && event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.d(TAG, "onTouch started");
+                    clicked = true;
                     handleClick(Integer.parseInt(v.getContentDescription().toString()));
                     v.performClick();
+                    // to prevent double answer screen
+                    Timer timerClicked = new Timer();
+                    timerClicked.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            clicked = false;
+                        }
+                    }, 200);
                     Log.d(TAG, "onTouch ended");
                     return true;
                 }
-                Log.d(TAG, "onTouch is not action down");
+                Log.d(TAG, "onTouch is not action down: "+ event.getAction());
                 return false;
             }
         };
